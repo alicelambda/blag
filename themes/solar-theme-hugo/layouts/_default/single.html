@@ -1,0 +1,17 @@
+{{ define "main" }}
+
+<header id="header">
+<h1> {{ .Title }} </h1>
+</header>
+<div id="page">
+	<div id="sidebar">
+		{{ partial "navigation" .}}
+	</div>
+	<article class="post">
+
+		<div class="post-content">{{ .Content | safeHTML }}</div>
+
+		<p class="meta">Posted on <span class="postdate">{{ .Date.Format "02. January 2006" }}</span></p>
+	</article>
+</div>
+{{ end }}

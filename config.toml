@@ -1,0 +1,21 @@
+baseURL = "https://alicereuter.com/"
+languageCode = "en-us"
+title = "Alice Reuter"
+theme = "solar-theme-hugo"
+
+[params]
+  description = "TAGLINE"
+
+[markup.goldmark.renderer]
+  unsafe= true
+
+[menu]
+  [[menu.a]]
+    name="home"
+    url="/"
+  [[menu.b]]
+    name="resume"
+    url="/resume.pdf"
+  [[menu.github]]
+    name="github"
+    url="https://github.com/alicelambda"

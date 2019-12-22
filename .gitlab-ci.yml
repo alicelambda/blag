@@ -1,0 +1,24 @@
+buildprod:
+  image: alicelambda/hugo
+  stage: build
+  only:
+    - master
+  script:
+  - pacman -S --noconfirm git
+  - pwd
+  - /bin/bash scripts/make.sh
+  - hugo
+  artifacts:
+    paths:
+    -  $CI_PROJECT_DIR
+
+deploy:
+ image: alicelambda/awscli
+ stage: deploy
+ only:
+   - master
+ script:
+    - cd public/
+    - aws --region  "us-east-1" s3 sync . s3://alicereuter.com
+    - aws cloudfront create-invalidation --distribution-id EP7B8XWZLHNV2 --paths /
+    

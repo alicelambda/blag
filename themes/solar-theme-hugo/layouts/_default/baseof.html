@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		{{ with .OutputFormats.Get "RSS" }}
+			<link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
+			<link href="{{ .RelPermalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
+		{{ end }}
+
+		<title>{{ .Title }}</title>
+
+		{{ $style := resources.Get (printf "css/colors-%s.scss" (.Site.Params.scheme | default "dark")) | toCSS | minify | fingerprint }}
+		<link rel="stylesheet" href="{{ $style.Permalink }}">
+
+		{{ partial "head.html" . }}
+	</head>
+	<body>
+
+				{{ block "main" . }}{{ end }}
+	</body>
+</html>
