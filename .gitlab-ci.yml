@@ -4,7 +4,6 @@ buildprod:
   only:
     - master
   script:
-  - pacman -S --noconfirm git
   - pwd
   - /bin/bash scripts/make.sh
   - hugo
