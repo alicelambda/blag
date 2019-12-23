@@ -14,8 +14,8 @@ theme = "solar-theme-hugo"
     name="home"
     url="/"
   [[menu.b]]
-    name="resume"
-    url="/resume.pdf"
+    name="email"
+    url="mailto:alice@alicereuter.com"
   [[menu.github]]
     name="github"
     url="https://github.com/alicelambda"
