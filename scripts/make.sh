@@ -1,6 +1,5 @@
-description[0]="It's Dockerized!"
-description[1]="Smasher of stacks"
-description[2]="I <3 systems"
+description[0]="Smasher of stacks"
+description[1]="I <3 systems"
 
 
 size=${#description[@]}

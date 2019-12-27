@@ -3,6 +3,7 @@ title: "Hack The Box: Mango"
 date: DATE
 draft: true
 tags: ["pentesting","htb"]
+reads: 3
 ---
 
 Hack the Box is a website for  pentesting. Mango was the first  box I got user access to! First I did a port scan to see what services were running. 
