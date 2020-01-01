@@ -3,10 +3,9 @@ title: "Hack The Box: Mango"
 date: DATE
 draft: true
 tags: ["pentesting","htb"]
-reads: 3
+reads: 2
 ---
-
-Hack the Box is a website for  pentesting. Mango was the first  box I got user access to! First I did a port scan to see what services were running. 
+Mango was the first Hack The Box I got user access to! Hack the Box is a pentesting website.  To get in, I started off with a port scan to see what services were running. 
 ```
 namp -sC -sC -oA mango 10.10.10.162
 # Nmap 7.80 scan initiated Wed Dec 18 10:44:55 2019 as: nmap -sC -sV -oA mango 10.10.10.162
@@ -38,24 +37,24 @@ Service detection performed. Please report any incorrect results at https://nmap
 ```
 
 
-From the scan I knew there were two websites and ssh was running. The first thing I did was look at what was hosted on port 80 and 443.  On port 80 I didn't find anything. But I port 443 I found a website that looked like a clone of the google search page.
+From the scan I knew there were two http/https servers and ssh was running. I  looked at what was hosted on these web servers.  On port 80 I didn't find anything. But on port, 443 I found a website that looked like a clone of the google search page. I ran gobuster against the server on port 80 but did not find any webpages.
 
 ![search page](/img/mango/search.png)
 
-The only link on the page that went anywhere was the Analytics button.  which I poked around on. I was a type of business analytics software called [Mango Solutions](https://mango-solutions.com).
+The only link on the page that went anywhere was the Analytics button. I was a type of business analytics software called [Mango Solutions](https://mango-solutions.com).
 ![analytics screenshot](/img/mango/analytics.png)
 
 
-I looked up mango in [exploit db](https://www.exploit-db.com) but I didn't find anything that was applicable. I tried uploading malformed csvs to see if that would do anythin but nope. I think took a look at the ssl certificate and found another subdomain.
+I looked up Mango Solutions in [exploit db](https://www.exploit-db.com) but I didn't find anything that was applicable. I tried uploading malformed data to see if I could exploit the webservice but there where no interesting error messages. I then took a look at the ssl certificate and found another subdomain.
 ![cert.png](/img/mango/cert.png)
 So I changed my /etc/hosts to include the new domain.
 ```
 10.10.10.162 staging-order.mango.htb
 10.10.10.162 mango.htb
 ```
-When I pointed the browser at staging-order.mango.htb. I found a login page.
+When I pointed the browser at staging-order.mango.htb, I found a login page.
 ![login screen](/img/mango/login.jpg)
-I then tried to to different types of injections on the login in page. I eventually stumbled upon the nosql injections on [payload all things](https://github.com/swisskyrepo/PayloadsAllTheThings). And I was able to get passwords for the accounts user and admin.
+I then tried to different types of injections on the login in page. I eventually stumbled upon the nosql injections on [payload all things](https://github.com/swisskyrepo/PayloadsAllTheThings). And I was able to get passwords for the accounts mango and admin. I guessed that there was an account with the username admin.
 ``` python
 import requests
 import string
@@ -91,11 +90,7 @@ while restart:
                         exit(0)
                     break
 ```
-This script works because we can make unauthenticated requests to mango db. By using a regular expression matches on the first characters of the password. When we start with an empty password we check if the password starts with a or with b and so on. The http status code 302 tells us that there was a match which lets us enumerate the user passwords. Using the admin creds I was an unable to  ssh onto the box.  But I was able to get onto to the box using the mangos creds. I realized that the `user.txt` was only readable by the admin account. I tried logging in locally using the admin creds and I got access to the user.txt.
+This script works because we can make unauthenticated requests to mongo db. By using a regular expression to match on the first characters of the password, we can enumerate the password. The http status code 302 tells us that our prefix matches the password. Using the found admin credentials I was an unable to  ssh onto the box. I was able to get onto to the box using the mangos credentials. However, I realized that the `user.txt` was only readable by the admin account. I tried logging in locally using the admin creds and I got access to the user.txt.
 ```
 su admin
 ```
-
-
-
-
