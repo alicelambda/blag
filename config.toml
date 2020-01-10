@@ -2,12 +2,12 @@ baseURL = "https://alicereuter.com/"
 languageCode = "en-us"
 title = "Alice Reuter"
 theme = "solar-theme-hugo"
+pygmentsCodeFences = true
+pygmentsUseClasses = true
 
 [params]
   description = "TAGLINE"
 
-[markup.goldmark.renderer]
-  unsafe= true
 
 [menu]
   [[menu.a]]
