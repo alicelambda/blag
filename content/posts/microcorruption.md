@@ -3,11 +3,87 @@ title: "Microcorruption"
 date: DATE
 draft: false
 tags: ["rev"]
+reads: 3
 ---
 
 
 [Micorruption](ttps://microcorruption.com/) is a series of reverse engineering challenges. My write up shows how I approached each stage of the challenge.
 
+# Johannesburg
+
+This challenge is an extension of Cusco. The overview states:
+```
+    - A firmware update rejects passwords which are too long.
+    - This lock is attached the the LockIT Pro HSM-1.
+```
+
+Since the password verification occurs on the hardware module we have to find another way to exploit it. First I ran the lock with an input that that was longer than limit of 16 character to see what would happen.
+```
+12345678901234567890123456789012345678901234567890
+```
+We get a message that password is too long.
+```
+Invalid Password Length: password too long.
+```
+The section of assembly that checks if our password is too long is:
+```
+4578:  f190 7e00 1100 cmp.b	#0x7e, 0x11(sp)
+457e:  0624           jeq	#0x458c <login+0x60>
+4580:  3f40 ff44      mov	#0x44ff "Invalid Password Length: password too long.", r15
+4584:  b012 f845      call	#0x45f8 <puts>
+4588:  3040 3c44      br	#0x443c <__stop_progExec__>
+458c:  3150 1200      add	#0x12, sp
+4590:  3041           ret
+```
+It's verifying the password length by checking that the value 0x7e hasn't been overwritten in memory. We can write 0x7e to that address in our payload and bypass the lenght test.
+```
+
+
+
+We know the stack addres is 43ec so we add 11 to it which 43FD. we then put this value into r09.
+```
+let r09 = 53fd
+```
+by then tracking r09 we can see where in our payload we need overide.
+```
+r 43fd
+```
+
+```
+00000000000000000000000000000000007e0000000
+```
+This allows us to the bypass the password check we can the overwrite the return address of login to the address of `<unlock_door>`
+```
+00000000000000000000000000000000007e46440000
+```
+# Cusco
+
+This challenge was the first buffer overflow. The overview states
+```
+    - We have fixed issues with passwords which may be too long.
+    - This lock is attached the the LockIT Pro HSM-1.
+```
+The password verification occurs on a hardware module so we don't know how the actual password verification occurs. So we have to find another way to exploit it. The other part of the overview says that they've fixed issues with too long of passwords. To check this I ran the lock with a password that was longer the limit of 16 characters.
+```
+insn address unaligned
+```
+This tells us that the cpu is trying to execute invalid instructions this means that we have overwritten the return address on the stack. By tracing function calls we find that the overwrite the return address for the `<login>` function.
+
+```
+4526:  0524           jz	#0x4532 <login+0x32>
+4528:  b012 4644      call	#0x4446 <unlock_door>
+452c:  3f40 d144      mov	#0x44d1 "Access granted.", r15
+4530:  023c           jmp	#0x4536 <login+0x36>
+4532:  3f40 e144      mov	#0x44e1 "That password is not correct.", r15
+4536:  b012 a645      call	#0x45a6 <puts>
+453a:  3150 1000      add	#0x10, sp
+453e:  3041           ret
+```
+Using the payload `123456789101112131415161718192021222324256`, I see that the values 2122 are what's overwriting the return address. Replacing those values with the address of `<unlock_door>` allows us to unlock the door.
+
+```
+123456789101112131415161718192024644324256
+```
 # Reykjavik
 In this challenge the instructions that check the password are encrypted. The `main` function calls the `enc` function which uses xor to write the decrypted instructions to memory. When then jump to 0x2400 which is the address where these decrypted instructions are written to. 
 ```
