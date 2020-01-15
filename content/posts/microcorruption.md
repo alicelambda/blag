@@ -2,7 +2,7 @@
 title: "Microcorruption"
 date: DATE
 draft: false
-tags: ["rev"]
+tags: ["reversing"]
 reads: 3
 ---
 
@@ -35,16 +35,16 @@ The section of assembly that checks if our password is too long is:
 458c:  3150 1200      add	#0x12, sp
 4590:  3041           ret
 ```
-It's verifying the password length by checking that the value 0x7e hasn't been overwritten in memory. We can write 0x7e to that address in our payload and bypass the lenght test.
-```
+It's verifying the password length by checking that the value 0x7e hasn't been overwritten in memory. We can write 0x7e to that address in our payload and bypass the length test.
 
 
 
-We know the stack addres is 43ec so we add 11 to it which 43FD. we then put this value into r09.
+
+We know the stack address is 43ec so we add 11 to it which 43FD. we then put this value into r09.
 ```
 let r09 = 53fd
 ```
-by then tracking r09 we can see where in our payload we need overide.
+by then tracking r09 we can see where in our payload we need override.
 ```
 r 43fd
 ```
