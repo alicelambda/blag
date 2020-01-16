@@ -1,7 +1,20 @@
 {{ define "main" }}
+<style>
+.overtext {
+	color: #e5ff61;
+    font-size: 1rem;
+    font-weight: normal;
+	position:absolute;
+	transform: translate(220%, -120%) rotate(-20deg);
+    }
+</style>
 <header id="header">
-	<h1><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h1>
-	<p>{{ .Site.Params.Description }}</p>
+	<h1>{{ .Site.Title }}
+		<div class="overtext">{{ .Site.Params.Description }}</div>
+	</h1>
+	<p>
+		{{.Site.Params.Bio}}
+	</p>
 </header>
 <div id="page">
 	<div id="sidebar">
@@ -21,6 +34,7 @@
 	{{ end }}
 
 	{{ partial "pagination.html" . }}
+	<script src="https://www.hackthebox.eu/badge/140225"></script>
 	</div>
 </div>
 {{ end }}
