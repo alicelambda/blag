@@ -3,11 +3,11 @@ title: "Microcorruption"
 date: DATE
 draft: false
 tags: ["reversing"]
-reads: 2
+reads: 1
 ---
 
 
-[Micorruption](ttps://microcorruption.com/) is a series of reverse engineering challenges. Here's how I approached each stage of the challenge.
+[Micorruption](ttps://microcorruption.com/) is a series of reverse engineering challenges. In each stage you disable a lock by reverse engineering it. Here's how I approached each stage of the challenge.
 
 # Johannesburg
 
@@ -16,11 +16,11 @@ This stage is an extension of the Cusco stage. The overview states:
     - A firmware update rejects passwords which are too long.
     - This lock is attached the the LockIT Pro HSM-1.
 ```
-Since the password verification occurs on the hardware module we have to find another way to exploit it. First I ran the lock with an input that that was longer than the password limit of 16 character to see what would happen.
+Since the password verification occurs on the hardware module, we have to find another way to exploit it. First, I ran the lock with an input that was longer than the password limit of 16 characters to see what would happen.
 ```
 0123456789101112131415161718192021222324252627
 ```
-We get a message that password is too long.
+We get a message that the password is too long.
 ```
 Invalid Password Length: password too long.
 ```
@@ -34,7 +34,7 @@ Here's the section of assembly that checks if our password is too long:
 458c:  3150 1200      add	#0x12, sp
 4590:  3041           ret
 ```
-It checks that the password isn't too long by checking if the value 0x7e hasn't been overwritten in memory. We can bypass this check by writing 0x7e to that address in our payload. We know the stack address at the comparison is 43ec, by adding 11 to it we get the address of the length check which is `43FD`. We can show where in the payload this by using the read command. 
+It checks if the password is too long by checking if the value 0x7e has been overwritten in memory. We can bypass this check by writing 0x7e to that address in our payload. We know the stack address at the comparison is `43ec`, by adding 11 to it we get the address of the length check which is `43FD`. We can show where in the payload this by using the read command. 
 ```
 > read 43fc
    43fc:   2122 2324 2526 2728  !"#$%&'(
@@ -46,10 +46,7 @@ Now we know which location in the payload to replace with `7e`.
 ```
 00000000000000000000000000000000007e00
 ```
-This allows us to the bypass the password check. We can the overwrite the return address of login to the address of `<unlock_door>`
-```
-01234567891011121314151617181920217e664552
-```
+This allows us to the bypass the password check. We can the overwrite the return address of login to the address of `<unlock_door>` causing unlock_door to be called.
 # Cusco
 
 This stage was the first buffer overflow. The overview states:
@@ -57,7 +54,7 @@ This stage was the first buffer overflow. The overview states:
     - We have fixed issues with passwords which may be too long.
     - This lock is attached the the LockIT Pro HSM-1.
 ```
-The password verification occurs on a hardware module so we don't know how the actual password verification occurs. We have to find another way to exploit it. The other part of the overview says that they've fixed issues with too long of passwords. To check this, I ran the lock with a password that was longer the limit of 16 characters.
+The password verification occurs on a hardware module so we have to find another way to exploit it. The other part of the overview says that they've fixed issues with too long of passwords. To check this, I ran the lock with a password that was longer the limit of 16 characters.
 ```
 insn address unaligned
 ```
@@ -72,13 +69,10 @@ This tells us that the cpu is trying to execute invalid instructions which means
 453a:  3150 1000      add	#0x10, sp
 453e:  3041           ret
 ```
-Using the payload `123456789101112131415161718192021222324256`, I see that the values 2122 are what's overwriting the return address. Replacing those values with the address of `<unlock_door>` allows us to unlock the door.
-```
-123456789101112131415161718192024644324256
-```
+Using the payload `123456789101112131415161718192021222324256`, we find that the values `2122` are what's overwriting the return address. Replacing those values with the address of `<unlock_door>` allows us to unlock the door.
 # Reykjavik
-In this stage the instructions that check the password are encrypted. The `main` function calls the `enc` function which uses xor to write the decrypted instructions to memory. When then jump to 0x2400 which is the address where these decrypted instructions are written to. 
-```
+In this stage the instructions that check the password are encrypted. The `main` function calls the `enc` function which uses xor to unencrypt the verification instructions. It then jumps to `0x2400` which is the address where these unencrypted instructions are written to. 
+```decrypted
 4438 <main>
 4438:  3e40 2045      mov	#0x4520, r14
 443c:  0f4e           mov	r14, r15
@@ -88,8 +82,8 @@ In this stage the instructions that check the password are encrypted. The `main`
 444a:  b012 0024      call	#0x2400
 444e:  0f43           clr	r15
 ```
-It's not important to understand what `enc` does besides knowing that it decrypts the unlock code. By setting a break point on the return address. We can then dump the memory around 0x2400 and disassemble it. So that we can see what does.
-```
+It's not important to understand what `enc` does besides knowing that it decrypts the unlock code. By setting a break point on the return address, we can dump the memory around 0x2400 and disassemble it. To see what it does.
+```decrypted
 4486 <enc>
 4486:  0b12           push	r11
 4488:  0a12           push	r10
@@ -149,7 +143,7 @@ It's not important to understand what `enc` does besides knowing that it decrypt
 4516:  3b41           pop	r11
 4518:  3041           ret
 ```
-Our dumped memory around 0x2400 is.
+The dumped memory around `0x2400` is:
 ```
 0b12 0412 0441 2452
 3150 e0ff 3b40 2045
@@ -200,7 +194,7 @@ b012 6424      call	#0x2464
 3b41           pop	r11
 3041           ret
 ```
-These decrypted instructions checks that the first byte of password is equal to `0xbe9`. 
+These unencrypted instructions checks that the first byte of password is equal to `0xbe9`. 
 ```
 b490 e90b dcff cmp	#0xbe9, -0x24(r4)
 0520           jnz	$+0xc
@@ -209,13 +203,7 @@ b012 6424      call	#0x2464
 ```
 We can then use that value as our password. It's order is flipped because of endianness `e90b`.
 # Hanoi
-My approach for solving this stage was to focus on the instructions that reference the area of memory the password is stored in.
-```
-4438 <main>
-4438:  b012 2045      call	#0x4520 <login>
-443c:  0f43           clr	r15
-```
-Login then calls `test_password_valid` which is a decoy, because it doesn't access the memory the password is stored in. So we know that it can't be checking the password.
+My approach for solving this stage was to focus on the instructions that reference the area of memory the password is stored in. The login function calls `test_password_valid` which is a decoy. It doesn't access the memory the password is stored in, so we know that it can't be checking the password.
 ```
 4520 <login>
 4520:  c243 1024      mov.b	#0x0, &0x2410
@@ -248,11 +236,7 @@ The actual password validation occurs in login.
 455a:  f290 7700 1024 cmp.b	#0x77, &0x2410
 4560:  0720           jne	#0x4570 <login+0x50>
 ```
-All it does is check that the 16th byte of password is 77.
-```
-000000000000000000000000000000007700
-```
-By setting that byte to 77 we solve this stage.
+All it does is check that the 16th byte of password is 77. By setting that byte to 77 we solve this stage.
 # Sydney 
 In this stage the password was stored in the instructions themselves.
 ```
@@ -268,12 +252,9 @@ In this stage the password was stored in the instructions themselves.
 44ac:  0e43           clr	r14
 44ae:  0f4e           mov	r14, r15
 ```
-This code is checking each part of our password against the values in the cmp instructions. It checks that `5962` was the first thing read on to our stack. Since the machine is little endian, this is when the least significant bytes are stored first in memory, when inputting values you have to flip the bytes to get `6259`. By putting all the values checked against in the cmp instructions we get our password.
-```
-6259525363316d4d
-```
+This code is checking each part of our password against the values in the cmp instructions. It checks that `5962` was the first thing read onto our stack. Since the machine is little endian, this is when the least significant bytes are stored first in memory, when inputting values we have to flip the bytes to get `6259`. By putting all the values in the cmp instructions together we get our password.
 # New Orleans 
-the create password function is 
+In this stage the password is created in the `create_password` function. 
 ```
 447e <create_password>
 447e:  3f40 0024      mov	#0x2400, r15
@@ -287,7 +268,7 @@ the create password function is
 44ac:  cf43 0700      mov.b	#0x0, 0x7(r15)
 44b0:  3041           ret
 ```
-The `check_password` function reads our password off of the stack. `Check_password` then compares our password to the password constructed by the move byte instructions.
+The `check_password` function reads our constructed password off of the stack. `Check_password` then compares our password to the password we put in.
 ```
 44bc <check_password>
 44bc:  0e43           clr	r14
@@ -301,6 +282,3 @@ The `check_password` function reads our password off of the stack. `Check_passwo
 44ce:  1f43           mov	#0x1, r15
 ```
 We construct the password by putting the bytes in the move instructions together.
-```
-0x38607c7227254700
-```
