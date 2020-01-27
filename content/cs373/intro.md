@@ -28,7 +28,7 @@ I've enjoyed Professor Downing's lecturing style. It was great how he had us int
 
 # 5. Why are you a CS major?
 
-I like software engineering because it allows you to solve problems you couldn't solve otherwise by hand. I like systems programming because I find it fascinating to see how operating systems work. I'm excited to be taking multicore operating systems this semester. I'm also interested in cybersecurity which probably stems from watching too much Mr. Robot in high school. I compete in cybersecurity competitions with ISSS at UT. 
+I like software engineering because it allows you to solve problems you couldn't solve otherwise by hand. I like systems programming because I find it fascinating to see how operating systems work. I'm excited to be taking multicore operating systems this semester. I'm also interested in cybersecurity which probably stems from watching too much Mr. Robot in high school. I compete in cybersecurity competitions with the Information Security & Systems Society at UT. 
 
 # 6. Favorite cat meme?
 
