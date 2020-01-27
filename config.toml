@@ -7,6 +7,7 @@ pygmentsUseClasses = true
 
 [params]
   description = "TAGLINE"
+  offset = "OFFSET"
   bios = "I'm second year CS Student at the University of Texas at Austin. I like to pen test and do reversing."
 
 
