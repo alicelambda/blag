@@ -2,7 +2,7 @@
 title: "Hack The Box: Mango"
 date: DATE
 draft: true
-tags: ["pentesting","htb"]
+tags: ["pentesting","Hack The Box"]
 reads: 2
 ---
 Mango was the first Hack The Box I got user access to! Hack the Box is a pentesting website.  To get in, I started off with a port scan to see what services were running. 
