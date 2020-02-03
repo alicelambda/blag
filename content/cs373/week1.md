@@ -27,7 +27,7 @@ I don't have a lot of experience with unit testing. I have never used a tool tha
 The development team I worked with last summer practiced agile as well as continuous integration. The only times we ran into trouble as was when someone would break the master build or if we went too long without merging. When we went too long without merging it took a lot of work to integrate everything.
 
 # 5. What made you happy this week?
-I left a student org that I didn't feel supported/comfortable in. And it has felt good to have more free time and not be in that environment anymore.
+I left a student service org that I didn't feel supported/comfortable in. And it has felt good to have more free time and not be in that environment anymore.
 
 # 6. What's your tip-of-the-week?
 [Hugo](https://gohugo.io) is a static site generator written in Go. It's really easy to set up and extend. There are also a [ton](https://themes.gohugo.io) of themes that you can use and modify. I use Hugo to build my blog. I built a docker container that has Hugo installed so that I can automatically build my blog using Gitlab's CI/CD. Once the blog has been built it is then uploaded to Amazon S3 which is where I host my blog.
