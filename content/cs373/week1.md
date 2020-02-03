@@ -24,7 +24,7 @@ I used assertations during my principals of operating systems course last semest
 
 I don't have a lot of experience with unit testing. I'm excited in using them as a guide for my development process. I have never used a tool that determines code coverage, but it seems useful.
 
-The development team I worked with last summer practiced agile as well as continuous integration. The only times we ran into trouble as was when someone would break the master build or if we went too long without merging. When we went too long without merging it took a lot of work to integrate everything.
+The development team I worked with last summer practiced agile as well as continuous integration. The only times we ran into trouble was when: someone would break the master build or if we went too long without merging. When we went too long without merging, it took a lot of work to integrate everything.
 
 # 5. What made you happy this week?
 I left a student service org that I didn't feel supported/comfortable in. And it has felt good to have more free time and not be in that environment anymore.
