@@ -1,7 +1,7 @@
 description[0]="Smasher of stacks"
 description[1]="I <3 systems"
 
-offset[0]="220"
+offset[0]="80"
 offset[1]="125"
 
 size=${#description[@]}
