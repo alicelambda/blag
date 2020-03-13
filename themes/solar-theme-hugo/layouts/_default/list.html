@@ -1,88 +1,66 @@
 {{ define "main" }}
 <style>
-
-@media print, screen and (max-width: 960px) { 
 	#header #over {
-		color:blue;
+		font-size: 0.9rem;
+		font-weight: normal;
+		position: relative;
+		color: #e5ff61;
 	}
-}
-@media print, screen and (max-width: 720px) {
-	#header #over {
-		color:blue;
-	}
-	body {
-		color:red;
-	}
- }
-@media print, screen and (max-width: 480px) { 
-	#header #over {
-		color:blue;
-	}
-}
-@media print { 
-	#header #over {
-		color:blue;
-	}
-}
-
-#header #over {
-	font-size: 1rem;
-	font-weight: normal;
-	position: relative;
-	color: #e5ff61;
-	transform: translate(6%,-20%) rotate(-20deg);
-}
-
-
 </style>
-<header id="header">
-	<h1>{{ .Site.Title }}
-		<div id="over">Smasher of stacks</div>
+<div class="mdc-layout-grid">
+	<div class="mdc-layout-grid__inner">
+		<div class="mdc-layout-grid__cell--span-3"></div>
+		<div class="mdc-layout-grid__cell--span-9">
 
-	</h1>
-	<p>
-		{{.Site.Params.Bio}}
-	</p>
-</header>
+			<header id="header">
+				<h1>{{ .Site.Title }}
+					<div id="over">Smasher of stacks</div>
+
+				</h1>
+				<p>
+					{{.Site.Params.Bio}}
+				</p>
+			</header>
+		</div>
+	</div>
+</div>
+
 <div id="page">
 
 	<div class="mdc-layout-grid">
 		<div class="mdc-layout-grid__inner">
-			<div class="mdc-layout-grid__cell
-			mdc-layout-grid__cell--span-2-desktop
-			mdc-layout-grid__cell--span-2-tablet
-			mdc-layout-grid__cell--span-0-phone
-			"></div>
-			<div class="mdc-layout-grid__cell--span-7">
-				<div class="mdc-layout-grid__inner">
 
-					<div class="mdc-layout-grid__cell--span-3">
-						<div id="sidebar">
-							{{ partial "navigation" .}}
+
+			<div class="mdc-layout-grid__cell--span-1"></div>
+
+			<div class="mdc-layout-grid__cell--span-1">
+				<div id="sidebar">
+					{{ partial "navigation" .}}
+				</div>
+			</div>
+
+			<div class="mdc-layout-grid__cell--span-1"></div>
+
+			<div class="mdc-layout-grid__cell--span-4">
+				<div id="content" style="width:600px;">
+					{{ range .Paginator.Pages }}
+					<article class="post">
+						<h1><a href="{{ .Permalink }}">{{ .Title }}</a> {{ if .Draft }}(Draft){{ end }}</h1>
+
+						<div class="post-content">
+							<p>{{ .Summary | plainify | safeHTML }} {{ if .Truncated }} … {{ end }}</p>
 						</div>
-					</div>
 
-					<div class="mdc-layout-grid__cell--span-4">
-						<div id="content" style="width:600px;">
-							{{ range .Paginator.Pages }}
-							<article class="post">
-								<h1><a href="{{ .Permalink }}">{{ .Title }}</a> {{ if .Draft }}(Draft){{ end }}</h1>
+						<p class="meta">Posted on <span class="postdate">{{ .Date.Format "02. January 2006" }}</span>
+						</p>
+					</article>
+					{{ end }}
 
-								<div class="post-content">
-									<p>{{ .Summary | plainify | safeHTML }} {{ if .Truncated }} … {{ end }}</p>
-								</div>
-
-								<p class="meta">Posted on <span
-										class="postdate">{{ .Date.Format "02. January 2006" }}</span></p>
-							</article>
-							{{ end }}
-
-							{{ partial "pagination.html" . }}
-						</div>
-					</div>
+					{{ partial "pagination.html" . }}
 				</div>
 			</div>
 		</div>
 	</div>
+
 </div>
 {{ end }}
