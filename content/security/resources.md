@@ -1,6 +1,6 @@
 ---
 title: "Security Resources"
-date: 2020-02-14T15:36:59-06:00
+date: DATE
 draft: false
 readings: 3
 tags: ["security","cptc"]

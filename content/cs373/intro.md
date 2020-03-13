@@ -1,6 +1,6 @@
 ---
 title: "CS373 Spring 2020: Alice Reuter Intro"
-date: 2020-01-26T17:54:32-06:00
+date: DATE
 draft: false
 readings: 0
 tags: ["cs373"]

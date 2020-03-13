@@ -1,6 +1,6 @@
 ---
 title: "CS373 Spring 2020: Alice Reuter Week3"
-date: 2020-02-16T20:47:12-06:00
+date: DATE
 draft: false
 readings: 3
 tags: ["cs373"]
