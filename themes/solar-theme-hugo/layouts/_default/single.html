@@ -1,28 +1,50 @@
 {{ define "main" }}
 
 <header id="header">
-<h1> {{ .Title }} </h1>
+	<h1> {{ .Title }} </h1>
 </header>
 <div id="page">
-	<div id="sidebar">
-		{{ partial "navigation" .}}
+
+	<div class="mdc-layout-grid">
+		<div class="mdc-layout-grid__inner">
+			<div class="mdc-layout-grid__cell
+			mdc-layout-grid__cell--span-2-desktop
+			mdc-layout-grid__cell--span-2-tablet
+			mdc-layout-grid__cell--span-0-phone
+			"></div>
+			<div class="mdc-layout-grid__cell--span-7">
+				<div class="mdc-layout-grid__inner">
+
+					<div class="mdc-layout-grid__cell--span-3">
+						<div id="sidebar">
+							{{ partial "navigation" .}}
+						</div>
+					</div>
+
+					<div class="mdc-layout-grid__cell--span-4">
+						<article class="post" style="width: 600px;">
+
+							<div class="post-content">{{ .Content | safeHTML }}</div>
+							<div class="tags">
+								{{ $taxonomy := "tags" }}
+								{{ with .Param $taxonomy }}
+								Tags [
+								{{ range $index, $tag := . }}
+								{{ with $.Site.GetPage (printf "/%s/%s" $taxonomy $tag) -}}
+								<a href="{{ .Permalink }}">{{ $tag | urlize }}</a>
+								{{- end -}}
+								{{- end -}}
+								]
+								{{ end }}
+							</div>
+							<p class="meta">Posted on <span
+									class="postdate">{{ .Date.Format "02. January 2006" }}</span>
+							</p>
+
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<article class="post">
-
-		<div class="post-content">{{ .Content | safeHTML }}</div>
-
-		{{ $taxonomy := "tags" }}
-			{{ with .Param $taxonomy }}
-			Tags [
-				{{ range $index, $tag := . }}
-					{{ with $.Site.GetPage (printf "/%s/%s" $taxonomy $tag) -}}
-					<a href="{{ .Permalink }}">{{ $tag | urlize }}</a>
-					{{- end -}}
-			{{- end -}}
-			]
-		{{ end }}
-		<p class="meta">Posted on <span class="postdate">{{ .Date.Format "02. January 2006" }}</span></p>
-	
-	</article>
-</div>
-{{ end }}
+	{{ end }}

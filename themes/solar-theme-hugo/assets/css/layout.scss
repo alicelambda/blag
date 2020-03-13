@@ -80,12 +80,7 @@ time,
 mark,
 audio,
 video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+	
 }
 article,
 aside,
@@ -98,7 +93,7 @@ hgroup,
 menu,
 nav,
 section {
-	display: block;
+	
 }
 figure {
 	background: rgba(255, 255, 255, 0.015);
@@ -108,10 +103,7 @@ figure {
 body {
 	line-height: 1.1;
 }
-ol,
-ul {
-	list-style: bullet;
-}
+
 blockquote,
 q {
 	quotes: none;
@@ -133,15 +125,12 @@ iframe {
 
 /*** Basics ***/
 body {
-	font-family: Verdana, Sans-Serif;
-	font-size: 13px;
-	line-height: 1.7;
+
 }
 
 a,
 a:active,
 a:visited {
-	text-decoration: none;
 	border-bottom: 1px solid #839496;
 	padding: 2px 4px;
 }
@@ -153,15 +142,7 @@ p {
 	margin-bottom: 15px;
 	word-wrap: break-word;
 }
-ul,
-ol {
-	padding: 0 0 18px 30px;
-}
-ol li,
-ul li {
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
+
 em,
 i {
 	font-style: italic;
@@ -206,22 +187,6 @@ hr {
 	border: 1px solid #000000;
 }
 
-h1 {
-	font-size: 17px;
-	margin: 0 0 10px 0;
-}
-h2 {
-	font-size: 15px;
-	margin: 0 0 10px 0;
-}
-h3 {
-	font-size: 14px;
-	margin: 0 0 10px 0;
-}
-h3 {
-	font-size: 13px;
-	margin: 0 0 10px 0;
-}
 
 /*** Useful Classes ***/
 .clear {
@@ -263,17 +228,13 @@ h3 {
 	text-decoration: underline;
 }
 
-/*** Structure ***/
-#page {
-	width: 700px;
-	margin: 0 auto;
-	position: relative;
-}
 
-#header {
-	width: 650px;
-	padding-left: 150px;
-	margin: 40px auto 50px auto;
+
+#header h1
+{
+	margin: auto;
+	text-align:center;
+	padding:10px;
 	background: url(/img/logo.svg) no-repeat center left;
 	background-size: auto 100%;
 }
@@ -320,17 +281,11 @@ h3 {
 	border-top: 1px solid #073642;
 }
 
-#content {
-	width: 500px;
-	margin: 0 auto;
-}
+
 
 #sidebar {
-	position: absolute;
-	text-align: right;
-	width: 160px;
-	top: 0;
-	left: -240px;
+	text-decoration: none;
+
 }
 
 #sidebar li {
@@ -343,6 +298,8 @@ h3 {
 	display: block;
 	font-size: 1.2em;
 	padding: 0;
+	text-decoration: none;
+
 }
 
 #sidebar a span {
@@ -366,7 +323,6 @@ article {
 }
 
 article h1 {
-	font-size: 17px;
 	margin: 0 0 10px 0;
 }
 article h1 a {
@@ -465,13 +421,17 @@ pre[class*='language-'] {
 	float: right;
 }
 
+.post p a {
+	text-decoration: none;
+}
+
 /*** Media Queries ***/
 @media all and (max-width: 870px) {
 	article img {
 		max-width: 100%;
 	}
 
-	#page,
+	
 	#header,
 	#content,
 	#footer {
@@ -483,42 +443,40 @@ pre[class*='language-'] {
 	#header {
 		background-position: right 20px center;
 	}
-	#header h1,
-	#header p {
-		padding-left: 10px;
-		padding-right: 10px;
-	}
+	
 
-	#sidebar {
-		position: relative;
-		text-align: left;
-		width: 100%;
-		left: 0;
-		margin: 10px 10px 20px 10px;
-	}
-
-	#sidebar nav ul {
-		padding-left: 0;
-	}
-
-	#sidebar nav ul li {
-		display: inline;
-	}
-
-	#sidebar a {
-		display: inline;
-	}
-
-	#sidebar nav select.mnav {
-		display: block;
-		margin-bottom: 15px;
-	}
-
-	#sidebar .bio {
-		display: none;
-	}
+#sidebar nav select.mnav {
+	display: block;
+	margin-bottom: 15px;
 }
 
+
+#sidebar nav ul {
+	padding-left: 0;
+}
+
+#sidebar nav ul li {
+	display: inline;
+}
+
+#sidebar a {
+	display: inline;
+}
+
+#sidebar nav select.mnav {
+	display: block;
+	margin-bottom: 15px;
+}
+
+#sidebar .bio {
+	display: none;
+	}
+
+}
+
+.post h1 a {
+	text-decoration: none;
+}
 /*** Icons ***/
 @font-face {
 	font-family: 'solarthemeicons';
@@ -623,3 +581,9 @@ pre[class*='language-'] {
 .token.entity {
 	cursor: help;
 }
+
+.tags a{
+	text-decoration: none;
+}
+
+
