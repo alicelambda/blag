@@ -13,8 +13,11 @@ tags: ["security","cptc"]
 * [exploit.education](https://exploit.education/downloads/)
 
 ## Reverse Engineering
+* [malware unicorn](https://malwareunicorn.org/workshops/re101.html#0)
 * [microcorruption](https://microcorruption.com/)
 * [Flare On](https://www.fireeye.com/blog/threat-research/2019/09/2019-flare-on-challenge-solutions.html)
+* [open rce](https://github.com/OpenRCE/Malware-Analysis-Training)
+
 
 ## Cryptology
 * [crypto pals](https://cryptopals.com/)
