@@ -1,5 +1,21 @@
 {{ define "main" }}
+<style>
 
+	@media only screen and (min-width: 760px) {
+		#content {
+			width:600px;
+		}
+
+	}
+
+/* Mobile Styles */
+@media only screen and (max-width: 400px) {
+  #icol {
+	  display:none;
+	  color: coral;
+  }
+}
+</style>
 <div class="mdc-layout-grid">
 	<div class="mdc-layout-grid__inner">
 		<div class="mdc-layout-grid__cell--span-3"></div>
@@ -18,7 +34,7 @@
 		<div class="mdc-layout-grid__inner">
 
 
-			<div class="mdc-layout-grid__cell--span-1"></div>
+			<div id="icol" class="mdc-layout-grid__cell--span-1"></div>
 			<div class="mdc-layout-grid__cell--span-1">
 
 				<div id="sidebar">
@@ -29,7 +45,7 @@
 			<div class="mdc-layout-grid__cell--span-1"></div>
 			<div class="mdc-layout-grid__cell--span-4">
 
-				<div id="content" style="width:600px;">
+				<div id="content">
 					{{ range .Paginator.Pages }}
 					<article class="post">
 						<h1><a href="{{ .Permalink }}">{{ .Title }}</a> {{ if .Draft }}(Draft){{ end }}</h1>
