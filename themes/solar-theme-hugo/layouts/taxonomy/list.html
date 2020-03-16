@@ -1,25 +1,9 @@
 {{ define "main" }}
-<style>
 
-	@media only screen and (min-width: 760px) {
-		#content {
-			width:600px;
-		}
-
-	}
-
-/* Mobile Styles */
-@media only screen and (max-width: 400px) {
-  #icol {
-	  display:none;
-	  color: coral;
-  }
-}
-</style>
 <div class="mdc-layout-grid">
 	<div class="mdc-layout-grid__inner">
 		<div class="mdc-layout-grid__cell--span-3"></div>
-		<div class="mdc-layout-grid__cell--span-9">
+		<div class="mdc-layout-grid__cell--span-6">
 			<header id="header">
 				<h1> {{title .Title }} </h1>
 				<p>
@@ -34,7 +18,7 @@
 		<div class="mdc-layout-grid__inner">
 
 
-			<div id="icol" class="mdc-layout-grid__cell--span-1"></div>
+			<div id="icol" class="mdc-layout-grid__cell--span-2"></div>
 			<div class="mdc-layout-grid__cell--span-1">
 
 				<div id="sidebar">
@@ -42,8 +26,7 @@
 				</div>
 
 			</div>
-			<div class="mdc-layout-grid__cell--span-1"></div>
-			<div class="mdc-layout-grid__cell--span-4">
+			<div class="mdc-layout-grid__cell--span-6">
 
 				<div id="content">
 					{{ range .Paginator.Pages }}
@@ -62,6 +45,8 @@
 					{{ partial "pagination.html" . }}
 				</div>
 			</div>
+
+			<div class="mdc-layout-grid__cell--span-3"></div>
 		</div>
 	</div>
 </div>

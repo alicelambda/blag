@@ -233,7 +233,7 @@ hr {
 #header h1
 {
 	margin: auto;
-	padding:10px;
+	width: 600px;
 	background: url(/img/logo.svg) no-repeat center left;
 	background-size: auto 100%;
 }
@@ -244,6 +244,8 @@ hr {
 
 
 }
+
+
 #header h1 a {
 	border: none;
 	color: #d18aff;
@@ -289,6 +291,7 @@ hr {
 
 #sidebar li {
 	list-style: none;
+	color:red;
 }
 
 #sidebar a {
@@ -562,4 +565,46 @@ pre[class*='language-'] {
 	text-decoration: none;
 }
 
+#content {
+	max-width: 600px;
+}
 
+
+#header #over {
+	font-size: 0.9rem;
+	font-weight: normal;
+	position: relative;
+	color: #e5ff61;
+}
+
+@media only screen and (min-width: 760px) {
+	#content {
+		width:600px; 
+		margin:auto;
+	}
+
+
+}
+
+
+/* Tablet Styles */
+@media only screen and (min-width: 401px) and (max-width: 1400px) {
+
+#sidebar a {
+margin-left:-4rem;
+}
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 840px) {
+#icol {
+  display:none;
+  color: coral;
+}
+
+#sidebar {
+	padding:30px
+}
+
+
+}
