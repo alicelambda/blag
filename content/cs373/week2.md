@@ -10,7 +10,7 @@ tags: ["cs373"]
 
 # 1. What did you this past week?
 
-This past week, I worked on my linear algebra homework. I also saw the prescreening of the DC Comics Birds of Prey movie which I enjoyed. This weekend I've mostly been working on our capabilities implementation for my multicore class. Capabilities are a way of doing access control and permission to access contiguous memory regions and other resources are granted at the process level.  Which allows for finer-grained permission schemes.
+This past week, I worked on my linear algebra homework. I also saw the prescreening of the DC Comics Birds of Prey movie which I enjoyed. This weekend I've mostly been working on our capabilities implementation for my multicore operating systems class. Capabilities are a way of allowing access to contiguous memory regions and other resources at the process level.  Which allows for finer-grained permission schemes.
 
 # 2. What's in your way?
 
