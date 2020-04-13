@@ -4,7 +4,7 @@ title = "Alice Reuter"
 theme = "solar-theme-hugo"
 pygmentsCodeFences = true
 pygmentsUseClasses = true
-
+disableHugoGeneratorInject = true
 [params]
   description = "TAGLINE"
   offset = "OFFSET"
