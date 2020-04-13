@@ -5,6 +5,8 @@ theme = "solar-theme-hugo"
 pygmentsCodeFences = true
 pygmentsUseClasses = true
 disableHugoGeneratorInject = true
+googleAnalytics = "UA-140668376-1"
+
 [params]
   description = "TAGLINE"
   offset = "OFFSET"
