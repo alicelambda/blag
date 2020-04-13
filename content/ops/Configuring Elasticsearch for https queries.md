@@ -1,7 +1,7 @@
 ---
 title: "Configuring Elasticsearch for HTTPS Queries"
 date: 2020-04-09T21:21:33-05:00
-draft: false
+draft: true
 readings: 3
 tags: ["ops","elasticsearch"]
 ---
