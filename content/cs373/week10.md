@@ -10,7 +10,7 @@ tags: ["cs373","react"]
 
 # 1. What did you do this past week?
 
-This past week I worked on implementing search, filtering and sorting on the model pages for our [software engineering project](https://hikeadvisor.me/). It took me a while to combine a bunch of fetch requests. Our API didn't support sorting or filtering so I decided to implement these features on the client side. This meant that the site had to request all the pages of results in order to filter them. I ended up using [Promise.all](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) which combines multiple Promises and return once all of them have been fulfilled. Here's how I ended upsing it.
+This past week I worked on implementing search, filtering and sorting on the model pages for our [software engineering project](https://hikeadvisor.me/). It took me a while to combine a bunch of fetch requests. Our API didn't support sorting or filtering so I decided to implement these features on the client side. This meant that the site had to request all the pages of results in order to filter them. I ended up using [Promise.all](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) which combines multiple Promises and return once all of them have been fulfilled. Here's how I ended using it.
 
 ```javascript
  fetch("https://api.hikeadvisor.me/api/animal?page=" + page)
