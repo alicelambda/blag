@@ -1,7 +1,7 @@
 ---
 title: "Hack The Box: Mango"
 date: DATE
-draft: true
+draft: false
 tags: ["pentesting","Hack The Box"]
 reads: 2
 ---
