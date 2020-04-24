@@ -8,7 +8,7 @@ reads: 1
 ---
 
 
-[Micorruption](ttps://microcorruption.com/) is a series of reverse engineering challenges. It's composed of a series of stages where you have to disable the lock to get to the next stage. Here's how I approached each stage.
+[Micorruption](https://microcorruption.com/) is a series of reverse engineering challenges. It's composed of a series of stages where you have to disable the lock to get to the next stage. Here's how I approached each stage.
 
 # Johannesburg
 
