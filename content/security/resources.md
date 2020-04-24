@@ -5,6 +5,8 @@ draft: false
 readings: 3
 tags: ["security","cptc"]
 ---
+The resources on the page are for educational purposes only.
+
 # Challenges
 
 ## Capture the Flags
@@ -56,6 +58,10 @@ IppSec focuses primarily on penetration testing
 * Hopper
 * Rader2
 * Ghidra
+
+## OSINT
+* [crt.sh](https://crt.sh)
+crt.sh is a tool that lets you lookup registered certificates for a domain.
 
 ## Debuggers
 * [Gef: a GDB plugin for reverse engineering]([https://github.com/hugsy/gef)
