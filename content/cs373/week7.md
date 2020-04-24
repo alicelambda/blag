@@ -23,3 +23,4 @@ Being able to see my brother as well as our family dog.
 # 4. What's your pick of the week?
 
 My pick of the week is [MyNoise](https://mynoise.net). It's a site that you can use to generate background noise such as a [coffee shop](https://mynoise.net/NoiseMachines/cafeRestaurantNoiseGenerator.php). It's really useful to be able tune out background noise since a lot of us will be working from home. I particularly like having the [flying fortress generator](https://mynoise.net/NoiseMachines/propellerNoiseGenerator.php) on while I code. 
+
