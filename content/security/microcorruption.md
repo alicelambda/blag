@@ -3,15 +3,16 @@ title: "Microcorruption"
 date: DATE
 draft: false
 tags: ["reversing"]
+description: "Microcoruption: I show you how to solve a series of reverse engineering challenges. Using buffer overflows, breakpoints and guesswork."
 reads: 1
 ---
 
 
-[Micorruption](ttps://microcorruption.com/) is a series of reverse engineering challenges. In each stage you disable a lock by reverse engineering it. Here's how I approached each stage of the challenge.
+[Micorruption](ttps://microcorruption.com/) is a series of reverse engineering challenges. It's composed of a series of stages where you have to disable the lock to get to the next stage. Here's how I approached each stage.
 
 # Johannesburg
 
-This stage is an extension of the Cusco stage. The overview states:
+The overview was:
 ```
     - A firmware update rejects passwords which are too long.
     - This lock is attached the the LockIT Pro HSM-1.
@@ -34,7 +35,7 @@ Here's the section of assembly that checks if our password is too long:
 458c:  3150 1200      add	#0x12, sp
 4590:  3041           ret
 ```
-It checks if the password is too long by checking if the value 0x7e has been overwritten in memory. We can bypass this check by writing 0x7e to that address in our payload. We know the stack address at the comparison is `43ec`, by adding 11 to it we get the address of the length check which is `43FD`. We can show where in the payload this by using the read command. 
+It checks if the password is too long by checking if the value 0x7e has been overwritten in memory. We can bypass this check by writing 0x7e to that address in our payload. We know the stack address at the comparison is `43ec`, by adding 11 to it we get the address of the length check which is `43FD`. We can show where in the payload this is by using the read command. 
 ```
 > read 43fc
    43fc:   2122 2324 2526 2728  !"#$%&'(
@@ -46,19 +47,19 @@ Now we know which location in the payload to replace with `7e`.
 ```
 00000000000000000000000000000000007e00
 ```
-This allows us to the bypass the password check. We can the overwrite the return address of login to the address of `<unlock_door>` causing unlock_door to be called.
+This allows us to bypass the password check. We can then overwrite the return address of login to the address of `<unlock_door>` causing unlock_door to be called.
 # Cusco
 
-This stage was the first buffer overflow. The overview states:
+This stage was a buffer overflow. The overview states:
 ```
     - We have fixed issues with passwords which may be too long.
     - This lock is attached the the LockIT Pro HSM-1.
 ```
-The password verification occurs on a hardware module so we have to find another way to exploit it. The other part of the overview says that they've fixed issues with too long of passwords. To check this, I ran the lock with a password that was longer the limit of 16 characters.
+The password verification occurs on the hardware module. The other part of the overview says that they've fixed issues with too long of passwords. To check this, I ran the lock with a password that was longer than the limit of 16 characters.
 ```
 insn address unaligned
 ```
-This tells us that the cpu is trying to execute invalid instructions which means that we have overwritten the return address on the stack and the cpu is jumping to a bad instruction. By tracing function calls we find that we are overwriting the return address for the `<login>` function.
+This tells us that the CPU is trying to execute invalid instructions which means that we have overwritten the return address on the stack and the CPU is jumping to a bad instruction. By tracing function calls we find that we are overwriting the return address for the `<login>` function.
 ```
 4526:  0524           jz	#0x4532 <login+0x32>
 4528:  b012 4644      call	#0x4446 <unlock_door>
@@ -252,7 +253,7 @@ In this stage the password was stored in the instructions themselves.
 44ac:  0e43           clr	r14
 44ae:  0f4e           mov	r14, r15
 ```
-This code is checking each part of our password against the values in the cmp instructions. It checks that `5962` was the first thing read onto our stack. Since the machine is little endian, this is when the least significant bytes are stored first in memory, when inputting values we have to flip the bytes to get `6259`. By putting all the values in the cmp instructions together we get our password.
+This code checks each part of our password against the values in the cmp instructions. It checks that `5962` was the first thing read onto our stack. Since the machine is little endian, this is when the least significant bytes are stored first in memory, when inputting values we have to flip the bytes to get `6259`. By putting all the values in the cmp instructions together we get our password.
 # New Orleans 
 In this stage the password is created in the `create_password` function. 
 ```
