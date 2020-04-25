@@ -4,7 +4,7 @@ date: DATE
 draft: false
 tags: ["pentesting","Hack The Box"]
 reads: 2
-description: Mango was the first Hack The Box I got user-level access to! Here's how I used nmap, tls certificates, and  NoSql injection to get access to the box."
+description: "Mango was the first Hack The Box I got user-level access to! Here's how I used nmap, tls certificates, and  NoSql injection to get access to the box."
 ---
 Mango was the first Hack The Box box I got user-level access to!  To get in, I started off with a port scan to see what services were running. 
 ```
