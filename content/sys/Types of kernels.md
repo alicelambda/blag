@@ -5,9 +5,17 @@ draft: true
 readings: 3
 ---
 
-There are three major models for kernels monolithic kernels, micro-kernels and exokernels. System's programming is about choosing between compromises. Each kernel model has it's own pros and cons I've created this quiz for entertainment purposes. 
 
-Monolithic Kernel
+There are three major models for kernel structures monolithic kernels, micro-kernels and exokernels. Each type of kernel has their own advantages and disvantages. Each kernel model.I've created this quiz for entertainment purposes. 
+
+<iframe id="inlineFrameExample"
+    title="Inline Frame Example"
+    width="400"
+    height="200"
+    src="/html/quiz.html">
+</iframe>
+
+
 - One api
 - Multiplexing resources
 - Unpredictable performance
@@ -22,3 +30,6 @@ Exokernel
 - Multiplexes hardware once
 - System level things like managing memory are used for libraries
 - Allows application specific policies for memory
+</p>
+      </div>
+    </div>
