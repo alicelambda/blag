@@ -3,7 +3,7 @@ title: "Microcorruption"
 date: DATE
 draft: false
 tags: ["reversing"]
-description: "Microcoruption: I show you how to solve a series of reverse engineering challenges. Using buffer overflows, breakpoints and guesswork."
+description: "Using buffer overflows, breakpoints and guesswork, I worked my way through a series of reverse engineering challenges."
 reads: 1
 ---
 
