@@ -4,7 +4,7 @@ date: DATE
 draft: false
 readings: 3
 tags: ["cs373"]
-description: "A weekly update for my software engineering class where I discuss: Nameservers, strace and our group presentations for our software engineering class"
+description: "A weekly update for my software engineering class where I discuss: Nameservers, becoming an Information & Systems Security Society officer and our group presentations for our software engineering class"
 ---
 
 <img src="/img/cs373/linkedin.png" width="200" align="left" style="padding-right:2rem" />
@@ -31,4 +31,4 @@ I was excited to be accepted as an engineering officer at the Information & Syst
 
 # 6. What's your pick of the week?
 
-My pick of the week is [strace](https://jvns.ca/blog/2013/12/22/fun-with-strace/). Strace is a useful command line utility to see what system calls an application is making. It's particurlary useful to see what a malfunctioning application it may be doing. I've used it to debug why bspwm wasn't working on my arch linux desktop. Turns out I was missing a config file. 
+My pick of the week is [strace](https://jvns.ca/blog/2013/12/22/fun-with-strace/). Strace is a useful command line utility to see what system calls an application is making. It's particurlary useful to see what a malfunctioning application may be doing. I've used it to debug why bspwm wasn't working on my arch linux desktop. Turns out I was missing a config file. 
