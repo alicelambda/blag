@@ -50,6 +50,8 @@ The resources on the page are for educational purposes only.
 * [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA)
 IppSec focuses primarily on penetration testing
 
+### Reverse engineering
+* [GodBolt](https://godbolt.org/)
 # Tools
 
 ## Dissassemblers

@@ -4,21 +4,22 @@ date: DATE
 draft: false
 readings: 3
 tags: ["cs373"]
+description: "A weekly update for my software engineering class where I discuss: Implementing crosscore communications for my multi-core operating systems class."
 ---
 
 <img src="/img/cs373/linkedin.png" width="200" align="left" style="padding-right:2rem" />
 
 # 1. What did you do this past week?
 
-This past week I worked on my take-home linear algebra test. I also worked on visualizations for my software engineering team website. For multi-core I worked on our team's implementation of cross core userspace message passing. We used two ring buffers on a split channel to pass messages between cores. Each message slot was the size of a cache line and we used arm memory fences to ensure cache coherency. It took me a while to understand what the dmb instruction does on arm and what the difference between the point of coherency and point of unification was. We also spent a while debugging synchronization issues. To spawn the kernel on the second core we needed to pass bootinfo that contained pointers to executables as well as pointers to that kernel segment of memory. Our implementation segments memory between cores to simplify our memory management code. We were having issues where the first core overwrote the bootinfo for the second core before the second core had finished copying the bootinfo into its own address space. We solved this by implementing a synchronization protocol by polling at the end of the channel.
+This past week I worked on my take-home linear algebra test. I also worked on visualizations for my software engineering team website. For multi-core I worked on our team's implementation of cross core userspace message passing. We used two ring buffers on a split channel to pass messages between cores. Each message slot was the size of a cache line and we used arm memory fences to ensure cache coherency. It took me a while to understand what the dmb instruction does on arm and what the difference between the point of coherency and point of unification was. We also spent a while debugging synchronization issues. To spawn the kernel on the second core we needed to pass boot info that contained pointers to executables as well as pointers to that kernel segment of memory. Our implementation segments memory between cores to simplify our memory management code. We were having issues where the first core overwrote the boot info for the second core before the second core had finished copying the boot info into its own address space. We solved this by implementing a synchronization protocol by polling at the end of the channel.
 
 # 2. What's in your way?
 
-I have a fair amount of work to get done for multicore and swe. I have to finish our teams' visualizations as well as record my part for our teams' video. 
+I have a fair amount of work to get done for multicore and software engineering. I have to finish our teams' visualizations as well as record my part for our teams' video. 
 
 # 3. What will you do next week?
 
-Next week I will be finishing my udp networking stack for multicore operating systems. 
+Next week I will be finishing my UDP networking stack for multicore operating systems. 
 
 # 4. What was your experience of refactoring?
 
