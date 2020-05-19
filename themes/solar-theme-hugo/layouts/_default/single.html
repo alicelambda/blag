@@ -29,7 +29,7 @@
 					<div class="tags">
 						{{ $taxonomy := "tags" }}
 						{{ with .Param $taxonomy }}
-						Tags [
+						<a href="https://alicereuter.com/tags/">Tags </a>[
 						{{ range $index, $tag := . }}
 						{{ with $.Site.GetPage (printf "/%s/%s" $taxonomy $tag) -}}
 						<a href="{{ .Permalink }}">{{ $tag | urlize }}</a>
