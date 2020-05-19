@@ -2,7 +2,7 @@
 title: "Microcorruption"
 date: DATE
 draft: false
-tags: ["reversing"]
+tags: ["reversing","ctf"]
 description: "Using buffer overflows, breakpoints and guesswork, I worked my way through a series of reverse engineering challenges."
 reads: 1
 ---
