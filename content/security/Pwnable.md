@@ -5,11 +5,11 @@ draft: false
 tags: ["ctf","pwn"]
 description:  "A writeup of the challenges from Pwnable.kr, a systems exploitation war game, that I've done"
 ---
-[https://pwnable.kr](pwnable.kr) is a site with a series of capture the flag challenges with increasing difficulty. Below are my notes working through each challenge.
+[pwnable.kr](https://pwnable.kr) is a site with a series of capture the flag challenges with increasing difficulty. Below are my notes working through each challenge.
 
 # Collision
 The point of this challenge was to find a value whose hash would match the harcoded hash. I added debugging statements to the hash code so that I see the computed hash. 
-``` C
+``` c
 #include <stdio.h>
 #include <string.h>
 unsigned long hashcode =0x21DD09EC;
@@ -110,7 +110,7 @@ int main(int argc, char* argv[], char* envp[]){
 
 }
 ```
-Our first argument gets converted to an integer and 0x1234 is subtracted from it. It is then passed as the first parameter of [http://codewiki.wikidot.com/c:system-calls:read](read). The documentation for `read` states that a file descriptor of 0 causes it to read from standard in which we control! Then `strcmp` checks if the input is equal is to `LETMEWIN\n`. So all we have to do is pass in 4660, which is 0x1234 in decimal, to make the program read from stdin and then type `LETMEWIN`. Which gives us our flag. 
+Our first argument gets converted to an integer and 0x1234 is subtracted from it. It is then passed as the first parameter of [read](http://codewiki.wikidot.com/c:system-calls:read). The documentation for `read` states that a file descriptor of 0 causes it to read from standard in which we control! Then `strcmp` checks if the input is equal is to `LETMEWIN\n`. So all we have to do is pass in 4660, which is 0x1234 in decimal, to make the program read from stdin and then type `LETMEWIN`. Which gives us our flag. 
 ```
 fd@ubuntu:~$ ./fd 4660
 LETMEWIN
