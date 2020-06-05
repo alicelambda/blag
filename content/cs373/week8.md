@@ -8,8 +8,6 @@ tags: ["cs373"]
 description: "A weekly update for my software engineering class where I discuss: What online classes have been like and vscode."
 ---
 
-<img src="/img/cs373/linkedin.png" width="200" align="left" style="padding-right:2rem" />
-
 # 1. What did you do this past week?
 
 This week was the first week of online classes. It was very weird. I have not been able to focus on lectures. In conversations with my friends, it seems that no one has been able to focus when listening to Zoom lectures.

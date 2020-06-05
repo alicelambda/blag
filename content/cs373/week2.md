@@ -7,7 +7,6 @@ tags: ["cs373"]
 description: "A weekly update for my software engineering class where I discuss: Implementing the cabalities access control method and cscope a tool for understanding large C codebases."
 ---
 
-<img src="/img/cs373/linkedin.png" width="200" align="left" style="padding-right:2rem" />
 
 # 1. What did you this past week?
 

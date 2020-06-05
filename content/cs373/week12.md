@@ -1,13 +1,11 @@
 ---
 title: "CS373 Spring 2020: Alice Reuter Week 12"
-date: DATE
+date: 2020-05-01 19:52:55 -0500
 draft: false
 readings: 3
 tags: ["cs373"]
 description: "A weekly update for my software engineering class where I discuss: Nameservers, becoming an Information & Systems Security Society officer and our group presentations for our software engineering class"
 ---
-
-<img src="/img/cs373/linkedin.png" width="200" align="left" style="padding-right:2rem" />
 
 # 1. What did you do this past week?
 

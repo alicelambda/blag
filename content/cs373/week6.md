@@ -7,7 +7,6 @@ tags: ["cs373"]
 description: "A weekly update for my software engineering class where I discuss: Remote procedure calls, how to set up TLS certificates and our midterm."
 ---
 
-<img src="/img/cs373/linkedin.png" width="200" align="left" style="padding-right:2rem" />\
 
 # 1. What did you do this past week?
 
