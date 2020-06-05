@@ -5,7 +5,9 @@ draft: true
 tags: ["ml"]
 description:  "Anatomy of DeepQ Learning"
 ---
-I wanted to implement DeepQ learning before I started doing research this summer to have fun. I knew about deepq learning from hearing about [Deep Mind's AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far).
+<img src="/vids/ml/deepq.gif">
+
+
 # Terms
 Agent: The neural network that takes actions in the game.  
 Action: An action the agent takes while playing the game.  
@@ -20,11 +22,20 @@ Training Network: The network that gets trained via action replay and
 
 # Memory Replay
 
-Memory replay is the way our agent learns how to play the game. At first the agent makes random decisions and keeps track of the decisions made in it's memory. Once it's memory has reached a certain length. A random sample is taken from the memory and is used to train the training network. The training network is trained on every turn. The predictive network, the network that actually makes the action, gets it's weight updated after a certain number of steps. 
+Memory replay is the way our agent learns how to play the game. At first the agent makes random decisions and keeps track of the decisions made in it's memory. Once it's memory has reached a certain length. A random sample is taken from the memory and is used to train the training network. The training network is trained on every turn. The predictive network's weight, the network that actually decides what action gets taken, has its weights updated after a certain number of steps. 
+
+# Training the training network
+
+$$
 
 # Things I learned along the way
 
- I decided to use the [OpenAi Gym's MountainCar-v0](https://gym.openai.com/envs/MountainCar-v0/)
+At first I tried to apply deepq learning on `MountainCar-v0`. I found the mountain car environment only gives out rewards very rarely. Once the car reaches the top of the hill. This meant that the agent wasn't able to learn anything because it hadn't seen any rewards during the time it was playing the game.
+
+I had bug in the way I used numpy's np.put function. I realized that the put function flattens the array before inserting the reward data into it. This meant the calculated rewards where being put in the wrong place. I switched the code to use np.putmask Which actually puts the rewards in their place with their corresponding actions. 
+
+# Code
+
 
 ```python 
 import gym
@@ -35,40 +46,48 @@ import tensorflow as tf
 import random
 import time
 import matplotlib.pyplot as plt
+from collections import deque
 
 env = gym.make("Breakout-ram-v0")
-env = gym.wrappers.Monitor(env, "mow",
-                           video_callable= lambda x:x % 20 == 0,
-                          force=True)
+
+# capture video every 20 games
+env = gym.wrappers.Monitor(env, "largebatch",
+                           video_callable=lambda x: x % 20 == 0,
+                           force=True)
 INPUT_SHAPE = env.observation_space.shape
 print(INPUT_SHAPE)
 NUM_ACTIONS = env.action_space.n
 print(NUM_ACTIONS)
 
 
-def createRamModel(): 
+def createRamModel():
 
     model = tf.keras.Sequential()
-    model.add(layers.Dense(128, activation='relu',input_shape=INPUT_SHAPE))
+    model.add(layers.Dense(80, activation='relu', input_shape=INPUT_SHAPE))
     # output is the same size as number of outputs
-    model.add(layers.Dense(70,activation='relu'))
+    model.add(layers.Dense(60, activation='relu'))
+    model.add(layers.Dense(NUM_ACTIONS, activation='linear'))
 
-    model.add(layers.Dense(NUM_ACTIONS,activation='linear'))
     model.compile(optimizer=tf.keras.optimizers.Adam(0.01),
-              loss='mse',       # mean squared error
-              metrics=['mae'])  # mean absolute error
+                  loss='mse',       # mean squared error
+                  metrics=['mae'])  # mean absolute error
     return model
 
 
 target_model = createRamModel()
+training_model = createRamModel()
+training_model.set_weights(target_model.get_weights())
 
-memory_actions = []
+memory_actions = deque(maxlen=10000)
 epsilon = 1
-batch_size = 4
+batch_size = 100
+# number of steps taken before training network is updated
+c = 300
 episodes = []
 for i in range(2000):
     total_reward = 0
-    obs = env.reset().reshape(1,-1)
+    counter = 0
+    obs = env.reset().reshape(1, -1)
     # the action the model takes is the output with the highest value
     action = np.argmax(target_model.predict(obs))
     done = False
@@ -76,32 +95,38 @@ for i in range(2000):
         lastobs = obs
         obs, reward, done, info = env.step(action)
         total_reward += reward
-        obs = obs.reshape(1,-1)
+        obs = obs.reshape(1, -1)
         if random.random() > epsilon:
             action = np.argmax(target_model.predict(obs))
         else:
             action = env.action_space.sample()
-        step = [lastobs,action,reward,obs]
+        step = [lastobs, action, reward, obs]
         memory_actions.append(step)
-
-
-    if len(memory_actions) > 1000:
-        print("training " +str(epsilon))
-        # do training once we've sampled enough actions
-        batch = np.asarray(random.sample(memory_actions,batch_size))
-        current_states = np.concatenate([i[0] for i in batch])
-        cur_q_vals = target_model.predict(current_states)
-        next_states = np.concatenate([i[3] for i in batch])
-        rewards = np.array([i[2] for i in batch])
-        actions = to_categorical(np.array([i[1] for i in batch]),num_classes=NUM_ACTIONS)
-        future_q_vals = target_model.predict(next_states)
-        maxfuture_q = np.amax(future_q_vals,axis=1)
-        updates = rewards + 0.999*maxfuture_q
-        np.putmask(cur_q_vals,actions,updates.astype('float32',casting='same_kind'))
-        target_model.fit(current_states,cur_q_vals,batch_size=batch_size)
+        if len(memory_actions) > 6000:
+            print("training " + str(epsilon))
+            # do training once we've sampled enough actions
+            batch = np.asarray(random.sample(memory_actions, batch_size))
+            current_states = np.concatenate([i[0] for i in batch])
+            cur_q_vals = training_model.predict(current_states)
+            next_states = np.concatenate([i[3] for i in batch])
+            rewards = np.array([i[2] for i in batch])
+            actions = to_categorical(
+                np.array([i[1] for i in batch]), num_classes=NUM_ACTIONS)
+            future_q_vals = training_model.predict(next_states)
+            maxfuture_q = np.amax(future_q_vals, axis=1)
+            updates = rewards + 0.99*maxfuture_q
+            np.putmask(cur_q_vals, actions, updates.astype(
+                'float32', casting='same_kind'))
+            training_model.fit(current_states, cur_q_vals,
+                               batch_size=batch_size)
+            counter += 1
+            epsilon = max(0.1,epsilon *0.999999)
+            if counter > c:
+                counter = 0
+                print("SET WEIGHTS")
+                target_model.set_weights(training_model.get_weights())
 
     episodes.append(total_reward)
-    epsilon*=0.999
 ```
 
 # Sources
