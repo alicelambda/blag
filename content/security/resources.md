@@ -4,6 +4,7 @@ date: DATE
 draft: false
 readings: 3
 tags: ["security","cptc"]
+description: "A list of cybersecurity learning resources, tools and challenges."
 ---
 The resources on the page are for educational purposes only.
 
