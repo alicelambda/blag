@@ -4,6 +4,7 @@ date: 2020-04-12 23:58:21 -0500
 draft: false
 readings: 3
 tags: ["cs373"]
+description: "A weekly update for my software engineering class where I discuss: Challenges writing React test using React-Router and React Dev tools."
 ---
 
 

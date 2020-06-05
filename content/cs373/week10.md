@@ -4,6 +4,7 @@ date: 2020-04-19 01:15:32 -0500
 draft: false
 readings: 3
 tags: ["cs373","react"]
+description: "A weekly update for my software engineering class where I discuss: Merging API reguests in React, Join queries and the Mozilla web docs. "
 ---
 
 # 1. What did you do this past week?
