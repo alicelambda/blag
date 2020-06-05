@@ -1,13 +1,11 @@
 ---
 title: "CS373 Spring 2020: Alice Reuter Week11"
-date: DATE
+date: 2020-05-01 19:38:16 -0500
 draft: false
 readings: 3
 tags: ["cs373"]
 description: "A weekly update for my software engineering class where I discuss: Implementing crosscore communications for my multi-core operating systems class."
 ---
-
-<img src="/img/cs373/linkedin.png" width="200" align="left" style="padding-right:2rem" />
 
 # 1. What did you do this past week?
 

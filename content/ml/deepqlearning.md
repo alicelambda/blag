@@ -3,9 +3,28 @@ title: "Deep Q Learning"
 date: DATE
 draft: true
 tags: ["ml"]
-description:  "My journey trying to implement Deep Q Learning."
+description:  "Anatomy of DeepQ Learning"
 ---
-I wanted to implement DeepQ learning before I started doing research this summer to have fun. I knew about deepq learning from hearing about [Deep Mind's AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far). After reading a bunch of articles here is my first try. I decided to use the [OpenAi Gym's MountainCar-v0](https://gym.openai.com/envs/MountainCar-v0/)
+I wanted to implement DeepQ learning before I started doing research this summer to have fun. I knew about deepq learning from hearing about [Deep Mind's AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far).
+# Terms
+Agent: The neural network that takes actions in the game.  
+Action: An action the agent takes while playing the game.  
+Q Value: The total predicted reward for a given action.  
+Memory: An array that keeps track of:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The State before an action.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The action taken.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The reward expercienced after that action.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The next state.  
+Prediction Network: The neural network that decides the playing actions.  
+Training Network: The network that gets trained via action replay and 
+
+# Memory Replay
+
+Memory replay is the way our agent learns how to play the game. At first the agent makes random decisions and keeps track of the decisions made in it's memory. Once it's memory has reached a certain length. A random sample is taken from the memory and is used to train the training network. The training network is trained on every turn. The predictive network, the network that actually makes the action, gets it's weight updated after a certain number of steps. 
+
+# Things I learned along the way
+
+ I decided to use the [OpenAi Gym's MountainCar-v0](https://gym.openai.com/envs/MountainCar-v0/)
 
 ```python 
 import gym

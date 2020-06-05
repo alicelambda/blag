@@ -7,8 +7,6 @@ tags: ["cs373"]
 ---
 
 
-<img src="/img/cs373/linkedin.png" width="200" align="left" style="padding-right:2rem" />
-
 # 1. What did you do last week?
 I finished milestone 0 for my multicore operating systems class. All we had to do was blink an led on the circuit board but it took a while to get used to low-level programming and reading manuals. I also started to look at the collatz project for software engineering. 
 

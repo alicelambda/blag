@@ -6,7 +6,6 @@ readings: 3
 tags: ["cs373"]
 ---
 
-<img src="/img/cs373/linkedin.png" width="200" align="left" style="padding-right:2rem" />
 
 # 1. What did you do this past week?
 

@@ -3,7 +3,7 @@ title: "Pwnable"
 date: DATE
 draft: false
 tags: ["ctf","pwn"]
-description:  "A writeup of the challenges from Pwnable.kr, a systems exploitation war game, that I've done"
+description:  "A writeup of the challenges from Pwnable.kr, a systems exploitation war game."
 ---
 [pwnable.kr](https://pwnable.kr) is a site with a series of capture the flag challenges with increasing difficulty. Below are my notes working through each challenge.
 

@@ -1,12 +1,10 @@
 ---
 title: "CS373 Spring 2020: Alice Reuter Week 10"
-date: DATE
+date: 2020-04-19 01:15:32 -0500
 draft: false
 readings: 3
 tags: ["cs373","react"]
 ---
-
-<img src="/img/cs373/linkedin.png" width="200" align="left" style="padding-right:2rem" />
 
 # 1. What did you do this past week?
 
