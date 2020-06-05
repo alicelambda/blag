@@ -26,6 +26,3 @@ googleAnalytics = "UA-140668376-1"
   [[menu.github]]
     name="Github"
     url="https://github.com/alicelambda"
-  [[menu.resume]]
-    name="Resume"
-    url="https://alicereuter.com/Alice Reuter Resume.pdf"
