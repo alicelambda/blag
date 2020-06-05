@@ -4,7 +4,7 @@ date: 2020-04-09T21:21:33-05:00
 draft: false
 readings: 3
 tags: ["ops","elasticsearch"]
-description: "Elasticsearch isn't configured for HTTPS requests out of the box. Here are the config changes necessary to make https queries and how to query Elasticsearch from React"
+description: "How to configure ElasticSearch to allow HTTPS requests."
 ---
 
 I use Elasticsearch to collect metrics for my todo app. To render visualizations of the data I was embedding kibana visualization into my stats page. I found that Kibana took around 5 seconds to load. It was also difficult to apply styling to the Kibana visualizations as well because they are loaded in an Iframe. I decided to recreate the visualizations using React to decrease the load time and to allow for a cleaner UI. When I tried to make an https query to elasticsearch however I found that I had CORS error because Elasticsearch was not setting the `access-control-allow-origin` header.
