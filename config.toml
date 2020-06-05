@@ -18,11 +18,14 @@ googleAnalytics = "UA-140668376-1"
 
 [menu]
   [[menu.a]]
-    name="home"
+    name="Home"
     url="/"
   [[menu.b]]
-    name="email"
+    name="Email"
     url="mailto:alice@alicereuter.com"
   [[menu.github]]
-    name="github"
+    name="Github"
     url="https://github.com/alicelambda"
+  [[menu.resume]]
+    name="Resume"
+    url="https://alicereuter.com/Alice Reuter Resume.pdf"
