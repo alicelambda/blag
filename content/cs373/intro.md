@@ -16,7 +16,7 @@ This is my first post as part of a series for CS373 Software Engineering with Pr
 
 # 2. Why are you taking Software Engineering?
 
-I signed up for software engineering because it has a strong reputation among UT students. I also wanted to work on my ability to build software as a team. The way tests are structured to be individual in the first half and collaborative in the second half was appealing because it gives us an opportunity to tackle problems collaboratively.
+I signed up for software engineering because it has a strong reputation among UT students. I also wanted to work on my ability to build software as a team. The way tests are structured to be individual in the first half and collaborative in the second half was appealing to me because it gives us an opportunity to tackle problems collaboratively.
 
 # 3. What experience do you have with web programming?
 
