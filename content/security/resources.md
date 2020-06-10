@@ -26,6 +26,7 @@ The resources on the page are for educational purposes only.
 * [microcorruption](https://microcorruption.com/)
 * [Flare On](https://www.fireeye.com/blog/threat-research/2019/09/2019-flare-on-challenge-solutions.html)
 * [Crackmes.one](https://crackmes.one)
+
 ## Penetration Testing
 - [Hack The Box](https://www.hackthebox.eu/)
 
@@ -53,6 +54,7 @@ IppSec focuses primarily on penetration testing
 
 ### Reverse engineering
 * [GodBolt](https://godbolt.org/)
+
 # Tools
 
 ## Dissassemblers
