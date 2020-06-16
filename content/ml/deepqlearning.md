@@ -9,24 +9,37 @@ description:  "Anatomy of DeepQ Learning"
 
 
 # Terms
-Agent: The neural network that takes actions in the game.  
-Action: An action the agent takes while playing the game.  
-Q Value: The total predicted reward for a given action.  
-Memory: An array that keeps track of:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The State before an action.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The action taken.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The reward expercienced after that action.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The next state.  
-Prediction Network: The neural network that decides the playing actions.  
-Training Network: The network that gets trained via action replay and 
+Agent:  
+The neural network that takes actions in the game.  
 
-# Memory Replay
+Action:  
+An action the agent takes while playing the game.  
 
-Memory replay is the way our agent learns how to play the game. At first the agent makes random decisions and keeps track of the decisions made in it's memory. Once it's memory has reached a certain length. A random sample is taken from the memory and is used to train the training network. The training network is trained on every turn. The predictive network's weight, the network that actually decides what action gets taken, has its weights updated after a certain number of steps. 
+Q Value:  
+The total predicted reward for a given action.  
+
+Memory:  
+A list that keeps tracks of: the State before an action, the action taken, the reward expercienced after that action, the next state.  
+
+Prediction Network:  
+The neural network that decides the playing actions.  
+
+Training Network:  
+The network that gets trained via action replay and periodically updates the prediction networks weights.  
+
+Epsilon Greedy:  
+An algorithm that decides what percentage of actions the agent takes is random. This is to control how much the agent explores.
+
+Memory replay:  
+The way our agent learns how to play the game. At first the agent makes random decisions and keeps track of the decisions made in it's memory. Once it's memory has reached a certain length. A random sample is taken from the memory and is used to train the training network. The training network is trained on every turn. The predictive network's weight, the network that actually decides what action gets taken, has its weights updated after a certain number of steps. 
 
 # Training the training network
 
-$$
+DeepQ learning works by approximating the q function of an environment. This means that it tries to predict the overall expected reward of the current action taken. So if make snake turns left in a snake game the q function tries to predict the overall score at the end of the game based off of turning left. It's harder to estimate the reward for actions that take place farther into than future than what's happening right now so we use something called the `discount factor` which lowers the affect of predictions farther out. 
+
+Q(s,a) = r(s,a) + discount factor * max of the future q values
+
+Our target q value for any action is the directly observed reward, the reward given at the time step, plus the discount factor times the predicted q value for the next step. Using our target q value we can train the neural netwoork to predict the long term outcomes of any given action. When playing the game we take the action with highest predicted q value. 
 
 # Things I learned along the way
 
@@ -34,7 +47,7 @@ At first I tried to apply deepq learning on `MountainCar-v0`. I found the mounta
 
 I had bug in the way I used numpy's np.put function. I realized that the put function flattens the array before inserting the reward data into it. This meant the calculated rewards where being put in the wrong place. I switched the code to use np.putmask Which actually puts the rewards in their place with their corresponding actions. 
 
-# Code
+# My Code
 
 
 ```python 
@@ -50,23 +63,24 @@ from collections import deque
 
 env = gym.make("Breakout-ram-v0")
 
+savevideo = lambda x: x % 20 == 0
 # capture video every 20 games
 env = gym.wrappers.Monitor(env, "largebatch",
-                           video_callable=lambda x: x % 20 == 0,
+                           video_callable=savevideo,
                            force=True)
 INPUT_SHAPE = env.observation_space.shape
-print(INPUT_SHAPE)
 NUM_ACTIONS = env.action_space.n
-print(NUM_ACTIONS)
 
 
 def createRamModel():
 
     model = tf.keras.Sequential()
-    model.add(layers.Dense(80, activation='relu', input_shape=INPUT_SHAPE))
+    model.add(layers.Dense(80, activation='relu', 
+                         input_shape=INPUT_SHAPE))
     # output is the same size as number of outputs
     model.add(layers.Dense(60, activation='relu'))
-    model.add(layers.Dense(NUM_ACTIONS, activation='linear'))
+    model.add(layers.Dense(NUM_ACTIONS, 
+                            activation='linear'))
 
     model.compile(optimizer=tf.keras.optimizers.Adam(0.01),
                   loss='mse',       # mean squared error
