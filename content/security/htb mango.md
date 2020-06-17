@@ -38,7 +38,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 ```
 
 
-From the scan, I knew there were two http/https servers and ssh was running. I  looked at what was hosted on these web servers.  On port 80 I didn't find anything. But on port 443 I found a website that looked like a clone of the google search page. I ran gobuster against the server on port 80 but did not find any webpages.
+From the scan, I knew there were two http/https servers and ssh running. I  looked at what was hosted on these web servers.  On port 80 I didn't find anything. But on port 443 I found a website that looked like a clone of the google search page. I ran gobuster against the server on port 80 but did not find any webpages.
 
 ![search page](/img/mango/search.png)
 
