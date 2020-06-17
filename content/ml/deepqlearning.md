@@ -1,7 +1,7 @@
 ---
 title: "Deep Q Learning"
 date: DATE
-draft: true
+draft: false
 tags: ["ml"]
 description:  "Anatomy of DeepQ Learning"
 ---
@@ -19,7 +19,7 @@ Q Value:
 The total predicted reward for a given action.  
 
 Memory:  
-A list that keeps tracks of: the State before an action, the action taken, the reward expercienced after that action, the next state.  
+A list that keeps tracks of: the state before an action, the action taken, the reward expercienced after that action was taken, the state after the action.  
 
 Prediction Network:  
 The neural network that decides the playing actions.  
@@ -28,24 +28,24 @@ Training Network:
 The network that gets trained via action replay and periodically updates the prediction networks weights.  
 
 Epsilon Greedy:  
-An algorithm that decides what percentage of actions the agent takes is random. This is to control how much the agent explores.
+An algorithm that decides what percentage of actions the agent takes is random. This is to control how much the agent explores an environment.
 
 Memory replay:  
-The way our agent learns how to play the game. At first the agent makes random decisions and keeps track of the decisions made in it's memory. Once it's memory has reached a certain length. A random sample is taken from the memory and is used to train the training network. The training network is trained on every turn. The predictive network's weight, the network that actually decides what action gets taken, has its weights updated after a certain number of steps. 
+Once the agent's memory has reached a certain length. A random sample is taken from the memory and is used to train the training network. 
 
 # Training the training network
 
-DeepQ learning works by approximating the q function of an environment. This means that it tries to predict the overall expected reward of the current action taken. So if make snake turns left in a snake game the q function tries to predict the overall score at the end of the game based off of turning left. It's harder to estimate the reward for actions that take place farther into than future than what's happening right now so we use something called the `discount factor` which lowers the affect of predictions farther out. 
+DeepQ learning works by approximating the q function of a game. This means that it tries to predict the overall expected reward of all the actions a player can take. It's harder to estimate the reward for actions that take place farther into than future than what's happening right now so we use something called the `discount factor` which lowers the affect of predictions of future actions. We use the formula below to calculate the q value. 
 
 Q(s,a) = r(s,a) + discount factor * max of the future q values
 
-Our target q value for any action is the directly observed reward, the reward given at the time step, plus the discount factor times the predicted q value for the next step. Using our target q value we can train the neural netwoork to predict the long term outcomes of any given action. When playing the game we take the action with highest predicted q value. 
+Our target q value for any action is the directly observed reward r(sma), the reward given at the time step, plus the discount factor times the maximum predicted q value for the step after the predicted q value. Using our target q value we can train the neural netwoork to predict the long term outcomes of any given action. When playing the game we take the action with highest predicted q value. 
 
 # Things I learned along the way
 
-At first I tried to apply deepq learning on `MountainCar-v0`. I found the mountain car environment only gives out rewards very rarely. Once the car reaches the top of the hill. This meant that the agent wasn't able to learn anything because it hadn't seen any rewards during the time it was playing the game.
+At first I tried to apply deepq learning on `MountainCar-v0` environment. I found the mountain car environment only gives out rewards very rarely. The player is only rewarded once the car reaches the top of the hill. This meant that the agent wasn't able to learn anything because it hadn't been able to reach the top of the hill.  
 
-I had bug in the way I used numpy's np.put function. I realized that the put function flattens the array before inserting the reward data into it. This meant the calculated rewards where being put in the wrong place. I switched the code to use np.putmask Which actually puts the rewards in their place with their corresponding actions. 
+I had bug in the way I used numpy's np.put function. I realized that the put function flattens the array before inserting the reward data into it. This meant that the calculated rewards where being put in the wrong place. I switched the code to use np.putmask Which actually puts the rewards in their place with their corresponding actions. 
 
 # My Code
 
