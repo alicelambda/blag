@@ -395,9 +395,8 @@ pre[class*='language-'] {
 	-ms-hyphens: none;
 	hyphens: none;
 	white-space: pre;
-	white-space: pre-wrap;
-	word-break: break-all;
-	word-wrap: break-word;
+	white-space: pre;
+	word-wrap: normal;
 	font-family: Menlo, Monaco, 'Courier New', monospace;
 	font-size: 1em;
 	line-height: 1.5;
@@ -442,8 +441,6 @@ pre[class*='language-'] {
 		background-position: right 20px center;
 	}
 	
-
-
 
 #sidebar .bio {
 	display: none;
