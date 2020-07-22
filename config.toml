@@ -9,7 +9,7 @@ googleAnalytics = "UA-140668376-1"
 
 [params]
   offset = "OFFSET"
-  bio = "TAGLINE"
+  bio = ""
 
 [markup]
   defaultMarkdownHandler = "blackfriday"
