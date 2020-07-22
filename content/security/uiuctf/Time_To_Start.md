@@ -3,7 +3,7 @@ title: "UIUCTF 2020:Time_To_Start kernel 100"
 date: DATE
 draft: false
 tags: ["ctf"]
-description:  "Write up about the first ctf kernel"
+description:  "Write up about the first ctf kernel challenge"
 ---
 
 
