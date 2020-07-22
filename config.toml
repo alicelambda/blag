@@ -9,8 +9,7 @@ googleAnalytics = "UA-140668376-1"
 
 [params]
   offset = "OFFSET"
-  bios = "I'm second year CS Student at the University of Texas at Austin. I like to pen test and do reversing."
-
+  bio = "TAGLINE"
 
 [markup]
   defaultMarkdownHandler = "blackfriday"

@@ -1,8 +1,10 @@
 description[0]="Smasher of stacks"
 description[1]="I <3 systems"
+description[2]="Console Cowgirl"
 
 offset[0]="80"
 offset[1]="125"
+offset[2]="100"
 
 size=${#description[@]}
 index=$(($RANDOM % $size))
